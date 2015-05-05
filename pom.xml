@@ -17,6 +17,18 @@
             <version>${dropwizard.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.hubspot.dropwizard</groupId>
+            <artifactId>dropwizard-guice</artifactId>
+            <version>0.8.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.dropwizard.metrics</groupId>
+            <artifactId>metrics-core</artifactId>
+            <version>${metrics.version}</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
@@ -25,6 +37,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <dropwizard.version>0.8.1</dropwizard.version>
+        <metrics.version>3.1.2</metrics.version>
     </properties>
 
     <build>
@@ -81,6 +94,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.5</version>
             </plugin>
+
         </plugins>
     </build>
 </project>

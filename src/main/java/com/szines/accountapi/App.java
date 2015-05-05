@@ -1,5 +1,6 @@
 package com.szines.accountapi;
 
+import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -14,7 +15,16 @@ public class App extends Application<AppConfiguration> {
         new App().run(args);
     }
 
-    public void initialize(Bootstrap<AppConfiguration> bootstrap) {}
+    public void initialize(Bootstrap<AppConfiguration> bootstrap) {
+
+        GuiceBundle<AppConfiguration> guiceBundle = GuiceBundle.<AppConfiguration>newBuilder()
+                .addModule(new AppModule())
+                .enableAutoConfig(getClass().getPackage().getName())
+                .setConfigClass(AppConfiguration.class)
+                .build();
+
+        bootstrap.addBundle(guiceBundle);
+    }
 
     @Override
     public void run(AppConfiguration configuration, Environment environment) throws Exception {
