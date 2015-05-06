@@ -9,12 +9,13 @@ import javax.ws.rs.core.Response;
 
 @Path("/account")
 @Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class AccountResource {
 
     @GET
     @Timed(name = "account-get-request")
     @Path("/{id}")
-    public Response getAccount(@PathParam("id") int id) {
+    public Response getAccount(@PathParam("id") long id) {
         return Response.ok(new Account(id, "Example Name", 365.89)).build();
     }
 
@@ -25,13 +26,13 @@ public class AccountResource {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteAccount(@PathParam("id") int id) {
+    public Response deleteAccount(@PathParam("id") long id) {
         return Response.noContent().build();
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateAccount(@PathParam("id") int id, Account account) {
+    public Response updateAccount(@PathParam("id") long id, Account account) {
         return Response.ok(new Account(id, account.getName(), account.getBalance())).build();
     }
 }

@@ -1,17 +1,27 @@
 package com.szines.accountapi.api;
 
-public class Account {
-    private final int id;
-    private final String name;
-    private final double balance;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-    public Account(int id, String name, double balance) {
+public class Account {
+
+    @NotNull
+    private long id;
+
+    @NotNull
+    @Size(min = 2, max = 64)
+    private String name;
+
+    @NotNull
+    private double balance;
+
+    public Account(long id, String name, double balance) {
         this.id = id;
         this.name = name;
         this.balance = balance;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

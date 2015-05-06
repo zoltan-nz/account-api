@@ -43,7 +43,7 @@
 
         <dependency>
             <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-db</artifactId>
+            <artifactId>dropwizard-jdbi</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
 
@@ -117,6 +117,19 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.5</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <mainClass>com.szines.accountapi.App</mainClass>
+                    <arguments>
+                        <argument>server</argument>
+                        <argument>config.yml</argument>
+                    </arguments>
+                </configuration>
             </plugin>
 
         </plugins>

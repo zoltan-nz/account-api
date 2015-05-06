@@ -2,14 +2,12 @@ package com.szines.accountapi;
 
 import com.hubspot.dropwizard.guice.GuiceBundle;
 import io.dropwizard.Application;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class App extends Application<AppConfiguration> {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) throws Exception {
         new App().run(args);
@@ -24,13 +22,16 @@ public class App extends Application<AppConfiguration> {
                 .build();
 
         bootstrap.addBundle(guiceBundle);
+        bootstrap.addBundle(new MigrationsBundle<AppConfiguration>() {
+            @Override
+            public DataSourceFactory getDataSourceFactory(AppConfiguration configuration) {
+                return configuration.getDataSourceFactory();
+            }
+        });
     }
 
     @Override
     public void run(AppConfiguration configuration, Environment environment) throws Exception {
-        LOGGER.info("Method App#run() called");
-        for (int i = 0; i < configuration.getMessageRepetitions(); i++) {
-            System.out.println( configuration.getMessage() );
-        }
+
     }
 }
