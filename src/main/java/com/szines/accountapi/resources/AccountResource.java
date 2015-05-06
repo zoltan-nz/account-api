@@ -1,6 +1,7 @@
 package com.szines.accountapi.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import com.szines.accountapi.api.Account;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,11 +15,11 @@ public class AccountResource {
     @Timed(name = "account-get-request")
     @Path("/{id}")
     public Response getAccount(@PathParam("id") int id) {
-        return Response.ok("{account_id: " + id + ", name: 'Dummy Name' }").build();
+        return Response.ok(new Account(id, "Example Name", 365.89)).build();
     }
 
     @POST
-    public Response createAccount(@FormParam("name") String name) {
+    public Response createAccount(Account account) {
         return Response.created(null).build();
     }
 
@@ -30,7 +31,7 @@ public class AccountResource {
 
     @PUT
     @Path("/{id}")
-    public Response updateAccount(@PathParam("id") int id, @FormParam("name") String name) {
-        return Response.ok("{account_id:"+ id +", name:" + name + "}").build();
+    public Response updateAccount(@PathParam("id") int id, Account account) {
+        return Response.ok(new Account(id, account.getName(), account.getBalance())).build();
     }
 }
