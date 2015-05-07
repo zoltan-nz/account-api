@@ -24,4 +24,4 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: balance
-                  type: decimal
+                  type: double
