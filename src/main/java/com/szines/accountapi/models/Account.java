@@ -4,16 +4,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "account")
+//@Table(name = "account")
 public class Account {
 
     private int id;
     private String name;
     private double balance;
 
+    // Hibernate need this as a default constructor
     private Account() {
 
     }

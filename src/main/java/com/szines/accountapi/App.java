@@ -1,8 +1,7 @@
 package com.szines.accountapi;
 
-import com.szines.accountapi.daos.AccountDAO;
+import com.hubspot.dropwizard.guice.GuiceBundle;
 import com.szines.accountapi.models.Account;
-import com.szines.accountapi.resources.AccountResource;
 import io.dropwizard.Application;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
@@ -37,13 +36,13 @@ public class App extends Application<AppConfiguration> {
 
         appModule = new AppModule();
 
-//        GuiceBundle<AppConfiguration> guiceBundle = GuiceBundle.<AppConfiguration>newBuilder()
-//                .addModule(appModule)
-//                .enableAutoConfig(getClass().getPackage().getName())
-//                .setConfigClass(AppConfiguration.class)
-//                .build();
+        GuiceBundle<AppConfiguration> guiceBundle = GuiceBundle.<AppConfiguration>newBuilder()
+                .addModule(appModule)
+                .enableAutoConfig(getClass().getPackage().getName())
+                .setConfigClass(AppConfiguration.class)
+                .build();
 
-//        bootstrap.addBundle(guiceBundle);
+        bootstrap.addBundle(guiceBundle);
         bootstrap.addBundle(migrationsBundle);
         bootstrap.addBundle(hibernateBundle);
 
@@ -51,11 +50,11 @@ public class App extends Application<AppConfiguration> {
 
     @Override
     public void run(AppConfiguration configuration, Environment environment) throws Exception {
-        final AccountDAO accountDAO = new AccountDAO(hibernateBundle.getSessionFactory());
+        appModule.setSessionFactory(hibernateBundle.getSessionFactory());
 
-        environment.jersey().register(new AccountResource(accountDAO));
-        environment.healthChecks().register("database", new SessionFactoryHealthCheck(hibernateBundle.getSessionFactory(), configuration.getDataSourceFactory().getValidationQuery()));
-
+        final SessionFactoryHealthCheck sessionFactoryHealthCheck =
+                new SessionFactoryHealthCheck(hibernateBundle.getSessionFactory(), configuration.getDataSourceFactory().getValidationQuery());
+        environment.healthChecks().register("session_factory", sessionFactoryHealthCheck );
     }
 
 

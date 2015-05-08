@@ -1,7 +1,7 @@
 package com.szines.accountapi.resources;
 
 import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Optional;
+import com.google.inject.Inject;
 import com.szines.accountapi.daos.AccountDAO;
 import com.szines.accountapi.models.Account;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -9,30 +9,39 @@ import io.dropwizard.hibernate.UnitOfWork;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
-@Path("/account")
+@Path("/accounts")
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
 
-    private final AccountDAO dao;
+    private final AccountDAO accountDAO;
 
-    public AccountResource(AccountDAO dao) {
-        this.dao = dao;
+    @Inject
+    public AccountResource(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
+    }
+
+    @GET
+    @Timed
+    @UnitOfWork
+    public List<Account> index() {
+        return accountDAO.all();
     }
 
     @GET
     @Timed(name = "account-get-request")
     @Path("/{id}")
     @UnitOfWork
-    public Optional<Account> getAccount(@PathParam("id") int id) {
-        return dao.find(id);
+    public Account getAccount(@PathParam("id") int id) {
+        return accountDAO.find(id);
     }
 
     @POST
     @Timed
     @UnitOfWork
     public Account create(Account account) {
-        return dao.save(account);
+        return accountDAO.save(account);
     }
 
     @DELETE
