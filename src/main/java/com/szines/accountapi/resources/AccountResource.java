@@ -50,9 +50,9 @@ public class AccountResource {
         return Response.noContent().build();
     }
 
-    @PUT
-    @Path("/{id}")
-    public Response updateAccount(@PathParam("id") int id, Account account) {
-        return Response.ok(new Account(id, account.getName(), account.getBalance())).build();
-    }
+//    @PUT
+//    @Path("/{id}")
+//    public Response updateAccount(@PathParam("id") int id, Account account) {
+//        return true;
+//    }
 }
