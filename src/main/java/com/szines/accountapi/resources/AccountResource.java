@@ -2,7 +2,7 @@ package com.szines.accountapi.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
-import com.szines.accountapi.daos.AccountDAO;
+import com.szines.accountapi.daos.AccountDao;
 import com.szines.accountapi.models.Account;
 import io.dropwizard.hibernate.UnitOfWork;
 
@@ -15,18 +15,18 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountResource {
 
-    private final AccountDAO accountDAO;
+    private final AccountDao accountDao;
 
     @Inject
-    public AccountResource(AccountDAO accountDAO) {
-        this.accountDAO = accountDAO;
+    public AccountResource(AccountDao accountDao) {
+        this.accountDao = accountDao;
     }
 
     @GET
     @Timed
     @UnitOfWork
     public List<Account> index() {
-        return accountDAO.all();
+        return accountDao.all();
     }
 
     @GET
@@ -34,14 +34,14 @@ public class AccountResource {
     @Path("/{id}")
     @UnitOfWork
     public Account getAccount(@PathParam("id") int id) {
-        return accountDAO.find(id);
+        return accountDao.find(id);
     }
 
     @POST
     @Timed
     @UnitOfWork
     public Account create(Account account) {
-        return accountDAO.save(account);
+        return accountDao.create(account);
     }
 
     @DELETE
@@ -49,10 +49,4 @@ public class AccountResource {
     public Response deleteAccount(@PathParam("id") int id) {
         return Response.noContent().build();
     }
-
-//    @PUT
-//    @Path("/{id}")
-//    public Response updateAccount(@PathParam("id") int id, Account account) {
-//        return true;
-//    }
 }

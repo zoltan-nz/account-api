@@ -2,9 +2,7 @@ package com.szines.accountapi.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "account")
@@ -12,6 +10,8 @@ public class Account {
 
     @JsonProperty
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @JsonProperty
@@ -22,12 +22,6 @@ public class Account {
 
     private Account() {
     }
-
-//    public Account(int id, String name, double balance) {
-//        this.id = id;
-//        this.name = name;
-//        this.balance = balance;
-//    }
 
     public int getId() {
         return id;

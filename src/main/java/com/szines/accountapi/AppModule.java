@@ -1,15 +1,18 @@
 package com.szines.accountapi;
 
+import com.google.common.base.Preconditions;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
-import com.google.inject.ProvisionException;
+import io.dropwizard.hibernate.HibernateBundle;
 import org.hibernate.SessionFactory;
 
 public class AppModule extends AbstractModule {
 
-    private SessionFactory sessionFactory;
+    private final HibernateBundle hibernateBundle;
 
-    public AppModule() {
+    public AppModule(HibernateBundle hibernateBundle) {
+        Preconditions.checkNotNull(hibernateBundle);
+        this.hibernateBundle = hibernateBundle;
     }
 
     @Override
@@ -17,17 +20,7 @@ public class AppModule extends AbstractModule {
     }
 
     @Provides
-    SessionFactory providesSessionFactory() {
-
-        if (sessionFactory == null) {
-            throw new ProvisionException("The Hibernate session factory has not yet been set. This is likely caused by forgetting to call setSessionFactory during Application.run()");
-        }
-
-        return sessionFactory;
+    SessionFactory getSessionFactory() {
+        return hibernateBundle.getSessionFactory();
     }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
 }

@@ -11,10 +11,10 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 @Singleton
-public class AccountDAO extends AbstractDAO<Account> {
+public class AccountDao extends AbstractDAO<Account> {
 
     @Inject
-    public AccountDAO(SessionFactory provider) {
+    public AccountDao(SessionFactory provider) {
         super(provider);
     }
 
@@ -26,7 +26,7 @@ public class AccountDAO extends AbstractDAO<Account> {
         return (List<Account>) criteria().list();
     }
 
-    public Account save(Account entity) throws HibernateException {
+    public Account create(Account entity) throws HibernateException {
         return persist(entity);
     }
 
