@@ -45,8 +45,6 @@ public class App extends Application<AppConfiguration> {
                 .build();
 
         bootstrap.addBundle(guiceBundle);
-
-
     }
 
     @Override
