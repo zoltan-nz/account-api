@@ -10,6 +10,16 @@
 
     <name>AccountApi</name>
 
+    <properties>
+        <!-- use UTF-8 for everything -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <dropwizard.version>0.8.1</dropwizard.version>
+        <metrics.version>3.1.2</metrics.version>
+        <dropwizard-guice.version>0.8.1.0</dropwizard-guice.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.dropwizard</groupId>
@@ -20,7 +30,7 @@
         <dependency>
             <groupId>com.hubspot.dropwizard</groupId>
             <artifactId>dropwizard-guice</artifactId>
-            <version>0.8.1.0</version>
+            <version>${dropwizard-guice.version}</version>
         </dependency>
 
         <dependency>
@@ -54,15 +64,6 @@
         </dependency>
 
     </dependencies>
-
-    <properties>
-        <!-- use UTF-8 for everything -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <dropwizard.version>0.8.1</dropwizard.version>
-        <metrics.version>3.1.2</metrics.version>
-    </properties>
 
     <build>
         <plugins>
