@@ -1,4 +1,4 @@
-package com.szines.accountapi.daos;
+package com.szines.accountapi.daos.account;
 
 
 import com.google.inject.Inject;
@@ -11,10 +11,10 @@ import org.hibernate.SessionFactory;
 import java.util.List;
 
 @Singleton
-public class AccountDao extends AbstractDAO<Account> {
+public class AccountStore extends AbstractDAO<Account> implements AccountDAO {
 
     @Inject
-    public AccountDao(SessionFactory provider) {
+    public AccountStore(SessionFactory provider) {
         super(provider);
     }
 
