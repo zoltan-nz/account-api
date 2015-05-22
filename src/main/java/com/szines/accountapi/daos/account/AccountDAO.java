@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface AccountDAO {
 
-    Account find(int id) throws HibernateException;
+    Account findById (int id) throws HibernateException;
+
+    Account findByNumber (String number) throws HibernateException;
 
     List<Account> all() throws HibernateException;
 

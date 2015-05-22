@@ -15,7 +15,7 @@ public class Account {
     private int id;
 
     @JsonProperty
-    private String name;
+    private String number;
 
     @JsonProperty
     private double balance;
@@ -31,12 +31,12 @@ public class Account {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNumber() {
+        return number;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public double getBalance() {

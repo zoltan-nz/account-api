@@ -31,10 +31,30 @@ public class AccountResource {
 
     @GET
     @Timed(name = "account-get-request")
-    @Path("/{id}")
+    @Path("/{number}")
     @UnitOfWork
-    public Account getAccount(@PathParam("id") int id) {
-        return accountStore.find(id);
+    public Account getAccount(@PathParam("number") String number) {
+        return accountStore.findByNumber(number);
+    }
+
+    @GET
+    @Timed
+    @Path("/")
+    @UnitOfWork
+    public List<Account> all() {
+        return accountStore.all();
+    }
+
+    @GET
+    @Timed
+    @Path("/search")
+    @UnitOfWork
+    public Account search(@QueryParam("id") int id, @QueryParam("number") String number) {
+        if (number != null) {
+            return accountStore.findByNumber(number);
+        }
+
+        return accountStore.findById(id);
     }
 
     @POST
